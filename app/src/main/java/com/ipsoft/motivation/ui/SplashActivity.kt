@@ -1,4 +1,4 @@
-package com.ipsoft.motivation
+package com.ipsoft.motivation.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,15 +7,21 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.ipsoft.motivation.R
+import com.ipsoft.motivation.infra.SecurityPreferences
 
 class SplashActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var btnStart: Button
     private lateinit var editName: EditText
+    private lateinit var securityPreferences: SecurityPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        securityPreferences = SecurityPreferences(this)
+
 
         if (supportActionBar != null) {
             supportActionBar?.hide()
@@ -25,6 +31,8 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         btnStart = findViewById(R.id.btn_start)
 
         btnStart.setOnClickListener(this)
+
+
     }
 
     override fun onClick(v: View) {
@@ -37,13 +45,16 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun handleSave() {
 
-        val name = editName.text
+        val name = editName.text.toString()
 
         if (name.isNotEmpty()) {
 
+
+            securityPreferences.storeString("name", name)
+
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("name", name)
             startActivity(intent)
+
 
         } else {
 
