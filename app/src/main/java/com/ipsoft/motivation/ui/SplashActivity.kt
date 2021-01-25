@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ipsoft.motivation.R
+import com.ipsoft.motivation.infra.MotivationConstants
 import com.ipsoft.motivation.infra.SecurityPreferences
 
 class SplashActivity : AppCompatActivity(), View.OnClickListener {
@@ -50,7 +51,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         if (name.isNotEmpty()) {
 
 
-            securityPreferences.storeString("name", name)
+            securityPreferences.storeString(MotivationConstants.KEY.PERSON_NAME, name)
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
